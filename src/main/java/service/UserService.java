@@ -2,6 +2,9 @@ package service;
 
 import dao.UserDAO;
 import model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -9,7 +12,41 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
+
 public class UserService {
+
+    private static UserService userService;
+
+   /* private SessionFactory sessionFactory {
+        this.sessionFactory = sessionFactory;
+    }*/
+
+    private static SessionFactory sessionFactory;
+
+//    private HibernateSessionFactoryUtil() { }
+
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            try {
+                Configuration configuration = new Configuration().configure();
+                configuration.addAnnotatedClass(User.class);
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+                sessionFactory = configuration.buildSessionFactory(builder.build());
+
+            } catch (Exception e) {
+                System.out.println("Исключение!" + e);
+            }
+        }
+        return sessionFactory;
+    }
+
+    private UserService getInstance() {
+        if (userService == null) {
+            userService = new UserService(DBHelper.getSessionFactory);
+        }
+        return userService;
+    }
+
 
     public UserService() {
     }

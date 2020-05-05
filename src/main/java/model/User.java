@@ -1,9 +1,23 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user_tab")
 public class User {
-    private long id;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
     private String name;
-    private long age;
+
+    @Column(name = "age")
+    private Long age;
+
+    @Column(name = "email")
     private String email;
 
     public User() {
