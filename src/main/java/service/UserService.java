@@ -36,6 +36,9 @@ public class UserService {
     public boolean isUserExist(String name, Long age, String email) {
         return userDAO.isUserExist(name, age, email);//jhv
     }
+    public boolean isUserExist2(String name, Long age, String email) {
+        return userDAO.isUserExist(name, age, email);//jhv
+    }
 
     public List<User> getAllUsers() {
         try {
