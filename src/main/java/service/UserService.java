@@ -1,6 +1,6 @@
 package service;
 
-import dao.UserJdbcDAO;
+import dao.UserDAO;
 import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -17,16 +17,12 @@ public class UserService {
 
     private static UserService userService;
 
-//    private SessionFactory sessionFactory {
-//        this.sessionFactory = sessionFactory;
-//    }
+   /* private SessionFactory sessionFactory {
+        this.sessionFactory = sessionFactory;
+    }*/
 
     private static SessionFactory sessionFactory;
 
-    public UserService(SessionFactory sessionFactory) {
-
-    }
-//
 //    private HibernateSessionFactoryUtil() { }
 
     public static SessionFactory getSessionFactory() {
@@ -44,9 +40,9 @@ public class UserService {
         return sessionFactory;
     }
 
-    private static UserService getInstance() {
+    private UserService getInstance() {
         if (userService == null) {
-            userService = new UserService(UserService.getSessionFactory());
+            userService = new UserService(DBHelper.getSessionFactory);
         }
         return userService;
     }
@@ -55,50 +51,69 @@ public class UserService {
     public UserService() {
     }
 
-//    UserDAO userDAO = getUserDAO();
-//    UserHibernateDAO userHibernateDAO =;
-//    UserJdbcDAO userJdbcDAO = g
+    UserDAO userDAO = getUserDAO();
 
 
-    public void updateUser(User user) {
-        getUserJdbcDAO().updateUser(user);
-
+    public void updateUser(User user) throws SQLException {
+        userDAO.updateUser(user);
     }
 
 
     public User getUserById(Long id) {
-        return getUserJdbcDAO().getUserById(id);
-
+        try {
+            return userDAO.getUserById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
     public boolean isUserExist(String name, Long age, String email) {
-        return getUserJdbcDAO().isUserExist(name, age, email);
+        return userDAO.isUserExist(name, age, email);//jhv
     }
-
+    public boolean isUserExist2(String name, Long age, String email) {
+        return userDAO.isUserExist(name, age, email);//jhv
+    }
 
     public List<User> getAllUsers() {
-        return getUserJdbcDAO().getAllUsers();
+        try {
+            return userDAO.getAllUsers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public void deleteUser(Long id) throws SQLException {
-        getUserJdbcDAO().deleteUser(id);
+    public boolean deleteUser(Long id) throws SQLException {
+        return userDAO.deleteUser(id);
     }
 
-    public void addUser(User user) throws SQLException {
+    public boolean addUser(User user) throws SQLException {
 
-        if (isUserExist(user.getName(), user.getAge(), user.getEmail()) == false) {
-            getUserJdbcDAO().addUser(user);
+        if (isUserExist(user.getName(), user.getAge(), user.getEmail())  == false) {
+            userDAO.addUser(user);
+            return true;
         } else {
+            return false;
         }
     }
 
+
     public void dropTable() {
-        getUserJdbcDAO().dropTable();
+        try {
+            getUserDAO().dropTable();
+        } catch (SQLException e) {
+
+        }
     }
 
-    public void createTable() {
-        getUserJdbcDAO().createTable();
+    public void createTable()  {
+        try {
+            getUserDAO().createTable();
+        } catch (SQLException e) {
+
+        }
     }
 
     private static Connection getMysqlConnection() {
@@ -122,38 +137,33 @@ public class UserService {
         }
     }
 
-//    private static UserDAO getUserDAO() {
-//        return new UserDAO(getMysqlConnection());
-//    }
+    private static UserDAO getUserDAO() {
+        return new UserDAO(getMysqlConnection());
+    }
+    public void updateUserName(Long id, String name) throws SQLException {
+        userDAO.updateUserName(id, name);
+    }
 
-    private static UserJdbcDAO getUserJdbcDAO() {
-        return new UserJdbcDAO(getMysqlConnection());
+    public void updateUserAge(Long id, Long age) throws SQLException {
+        userDAO.updateUserAge(id, age);
+    }
+
+    public void updateUserEmail(Long id, String email) throws SQLException {
+        userDAO.updateUserEmail(id, email);
+    }
+    public List<User> getAllUsersByName(String name) {
+        try {
+            return userDAO.getAllUsersByName(name);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public List<User> getAllUsersByAddress(String email) {
+        try {
+            return userDAO.getAllUsersByAddress(email);
+        } catch (SQLException e) {
+            return null;
+        }
     }
 }
-//    public void updateUserName(Long id, String name) throws SQLException {
-//        userDAO.updateUserName(id, name);
-//    }
-//
-//    public void updateUserAge(Long id, Long age) throws SQLException {
-//        userDAO.updateUserAge(id, age);
-//    }
-//
-//    public void updateUserEmail(Long id, String email) throws SQLException {
-//        userDAO.updateUserEmail(id, email);
-//    }
-//    public List<User> getAllUsersByName(String name) {
-//        try {
-//            return userDAO.getAllUsersByName(name);
-//        } catch (SQLException e) {
-//            return null;
-//        }
-//    }
-//
-//    public List<User> getAllUsersByAddress(String email) {
-//        try {
-//            return userDAO.getAllUsersByAddress(email);
-//        } catch (SQLException e) {
-//            return null;
-//        }
-//    }
-//}
