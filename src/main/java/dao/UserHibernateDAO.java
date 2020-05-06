@@ -34,17 +34,24 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void updateUser(User user) {
-//        Session session = UserService.getSessionFactory().openSession();
-//        Transaction transaction = session.beginTransaction();
-//        try {
-//            Query query = session.createQuery("delete from User where id = :id")
-//                    .setParameter("id", id)
-//                    .executeUpdate();
-//        }catch (Exception e){
-//            transaction.rollback();
-//        }finally {
-//            session.close();
-//        }
+        Session session = UserService.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Long id = user.getId();
+        String name = user.getName();
+        Long age = user.getAge();
+        String email = user.getEmail();
+        try {
+            Query query = session.createQuery("update User set name = :name , age = :age , email = :email where id = :id")
+                    .setParameter("id", id)
+                    .setParameter("name", name)
+                    .setParameter("age", age)
+                    .setParameter("email", email);
+                    query.executeUpdate();
+        }catch (Exception e){
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
     }
 
     @Override
