@@ -1,7 +1,6 @@
 package service;
 
 import dao.UserDAO;
-import exception.DBException;
 import model.User;
 
 import java.sql.Connection;
