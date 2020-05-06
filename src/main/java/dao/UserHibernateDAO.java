@@ -68,6 +68,11 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
+    public User getUserById(Long id) {
+        return null;
+    }
+
+    @Override
     public List<User> getAllUsers() {
         Session session = UserService.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();

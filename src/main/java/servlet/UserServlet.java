@@ -2,8 +2,6 @@ package servlet;
 
 //import com.mysql.jdbc.Connection;
 
-import dao.UserDAO;
-import exception.DBException;
 import model.User;
 import service.UserService;
 
