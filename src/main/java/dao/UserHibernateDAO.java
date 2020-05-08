@@ -36,16 +36,8 @@ public class UserHibernateDAO implements UserDAO {
         Session session = DBHelper.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Long id = user.getId();
-            String name = user.getName();
-            Long age = user.getAge();
-            String email = user.getEmail();
-            Query query = session.createQuery("update  User set name = :name , age = :age , email = :email where id = :id")
-                    .setParameter("id", id)
-                    .setParameter("name", name)
-                    .setParameter("age", age)
-                    .setParameter("email", email);
-            query.executeUpdate();
+            session.update(user);
+            transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
         } finally {
@@ -56,10 +48,12 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public void deleteUser(Long id) {
         Session session = DBHelper.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            Query query = session.createQuery("delete from User where id = :id").setParameter("id", id);
-            query.executeUpdate();
+            session.delete(getUserById(id));
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
         } finally {
             session.close();
         }
