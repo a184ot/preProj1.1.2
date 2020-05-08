@@ -34,7 +34,9 @@ public class UserService implements Service {
     @Override
     public void updateUser(User user) {
 //        getUserJdbcDAO().updateUser(user);
-        new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).updateUser(user);
+        if (!isUserExist(user.getName(),user.getAge(),user.getEmail())) {
+            new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).updateUser(user);
+        }
     }
 
     @Override
@@ -64,12 +66,12 @@ public class UserService implements Service {
     @Override
     public void addUser(User user) {
 
-//        if (isUserExist(user.getName(), user.getAge(), user.getEmail())  == false) {
+        if (!isUserExist(user.getName(), user.getAge(), user.getEmail())) {
 //            getUserJdbcDAO().addUser(user);
         new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).addUser(user);
 //        } else {
 //            return false;
-//        }
+        }
     }
 
     @Override

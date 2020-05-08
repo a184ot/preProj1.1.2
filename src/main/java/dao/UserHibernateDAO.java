@@ -66,9 +66,9 @@ public class UserHibernateDAO implements UserDAO {
         Transaction transaction = session.beginTransaction();
         try {
             userList = session.createQuery("FROM User").list();
-            transaction.commit();
             return userList;
         } catch (Exception e) {
+
         } finally {
             session.close();
         }
@@ -94,11 +94,11 @@ public class UserHibernateDAO implements UserDAO {
     public boolean isUserExist(String name, Long age, String email) {
         Session session = DBHelper.getSessionFactory().openSession();
         try {
-            Query query = session.createQuery("FROM User WHERE name = :name  AND age = :age AND email = :email");
+            Query query = session.createQuery("select count (*) from User WHERE name = :name and age = :age and email = :email");
             query.setParameter("name", name);
             query.setParameter("age", age);
             query.setParameter("email", email);
-            return query.uniqueResult() != null;
+            return (Long)query.uniqueResult() != 0L;
         } catch (Exception r) {
             return false;
         } finally {
@@ -115,6 +115,7 @@ public class UserHibernateDAO implements UserDAO {
         Session session = DBHelper.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
+
             session.createSQLQuery("delete from user_tab").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
