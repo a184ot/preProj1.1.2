@@ -15,10 +15,9 @@ import java.util.List;
 
 @WebServlet("/")
 public class UserServlet extends HttpServlet {
-    private UserService userService;
-
+    private UserService userService = UserService.getInstance();
     public void init() {
-        userService = UserService.getInstance();
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

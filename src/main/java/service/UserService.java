@@ -3,7 +3,6 @@ package service;
 import dao.UserHibernateDAO;
 import dao.UserJdbcDAO;
 import model.User;
-import org.hibernate.SessionFactory;
 import util.DBHelper;
 
 import java.sql.Connection;
@@ -15,52 +14,48 @@ import java.util.List;
 public class UserService implements Service {
 
     private static UserService userService;
-    private SessionFactory sessionFactory;
-
-    private UserService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     public static UserService getInstance() {
         if (userService == null) {
-            userService = new UserService(DBHelper.getSessionFactory());
+            userService = new UserService();
         }
         return userService;
     }
 
-    public UserService() {
-    }
+    UserHibernateDAO userHibernateDAO = new UserHibernateDAO(DBHelper.getSessionFactory());
 
     @Override
     public void updateUser(User user) {
 //        getUserJdbcDAO().updateUser(user);
         if (!isUserExist(user.getName(),user.getAge(),user.getEmail())) {
-            new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).updateUser(user);
+            userHibernateDAO.updateUser(user);
+
         }
+
     }
 
     @Override
     public User getUserById(Long id) {
 //        return getUserJdbcDAO().getUserById(id);
-        return new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).getUserById(id);
+        return userHibernateDAO.getUserById(id);
     }
 
     @Override
     public boolean isUserExist(String name, Long age, String email) {
 //        return getUserJdbcDAO().isUserExist(name, age, email);//jhv
-        return new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).isUserExist(name, age, email);
+        return userHibernateDAO.isUserExist(name, age, email);
     }
 
     @Override
     public List<User> getAllUsers() {
 //        return getUserJdbcDAO().getAllUsers();
-        return new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).getAllUsers();
+        return userHibernateDAO.getAllUsers();
     }
 
     @Override
     public void deleteUser(Long id) {
 //        getUserJdbcDAO().deleteUser(id);
-        new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).deleteUser(id);
+        userHibernateDAO.deleteUser(id);
     }
 
     @Override
@@ -68,7 +63,7 @@ public class UserService implements Service {
 
         if (!isUserExist(user.getName(), user.getAge(), user.getEmail())) {
 //            getUserJdbcDAO().addUser(user);
-        new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).addUser(user);
+            userHibernateDAO.addUser(user);
 //        } else {
 //            return false;
         }
@@ -76,12 +71,12 @@ public class UserService implements Service {
 
     public void dropTable() {
 //        getUserJdbcDAO().dropTable();
-        new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).dropTable();
+        userHibernateDAO.dropTable();
     }
 
     public void createTable()  {
 //        getUserJdbcDAO().createTable();
-        new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).createTable();
+        userHibernateDAO.createTable();
     }
 
 
@@ -109,5 +104,6 @@ public class UserService implements Service {
     private static UserJdbcDAO getUserJdbcDAO() {
         return new UserJdbcDAO(getMysqlConnection());
     }
+
 }
 //

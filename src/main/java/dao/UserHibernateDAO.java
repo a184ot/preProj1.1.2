@@ -3,23 +3,22 @@ package dao;
 import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import util.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserHibernateDAO implements UserDAO {
 
-    private Session session;
-
-    public UserHibernateDAO(Session session) {
-        this.session = session;
+    private final SessionFactory sessionFactory;
+    public UserHibernateDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public void addUser(User user) {
-        Session session = DBHelper.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.save(user);
@@ -33,7 +32,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void updateUser(User user) {
-        Session session = DBHelper.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.update(user);
@@ -47,7 +46,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void deleteUser(Long id) {
-        Session session = DBHelper.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.delete(getUserById(id));
@@ -62,8 +61,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList();
-        Session session = DBHelper.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = sessionFactory.openSession();
         try {
             userList = session.createQuery("FROM User").list();
             return userList;
@@ -77,7 +75,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public User getUserById(Long id) {
-        Session session = DBHelper.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query query = session.createQuery("from User where id= :id");
             query.setParameter("id", id);
@@ -92,7 +90,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public boolean isUserExist(String name, Long age, String email) {
-        Session session = DBHelper.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query query = session.createQuery("select count (*) from User WHERE name = :name and age = :age and email = :email");
             query.setParameter("name", name);
@@ -110,7 +108,7 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     public void dropTable() {
-        Session session = DBHelper.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.createQuery("delete User").executeUpdate();

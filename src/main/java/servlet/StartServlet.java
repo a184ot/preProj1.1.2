@@ -14,9 +14,10 @@ import java.util.List;
 
 @WebServlet("")
 public class StartServlet extends HttpServlet {
-    private UserService userService;
-
+//    private UserService userService;
+UserService userService = UserService.getInstance();
     public void init() {
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,7 +27,7 @@ public class StartServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<User> listUser = UserService.getInstance().getAllUsers();
+        List<User> listUser = userService.getAllUsers();
 
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
