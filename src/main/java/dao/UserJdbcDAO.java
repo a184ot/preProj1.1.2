@@ -97,7 +97,6 @@ public class UserJdbcDAO implements UserDAO {
         }
     }
 
-    @Override
     public void createTable() {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute("create table if not exists user_tab (id bigint auto_increment, name varchar(256), age bigint, email varchar(256), primary key (id))");
@@ -105,7 +104,6 @@ public class UserJdbcDAO implements UserDAO {
         }
     }
 
-    @Override
     public void dropTable() {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DROP TABLE IF EXISTS user_tab");

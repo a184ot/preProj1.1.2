@@ -106,17 +106,14 @@ public class UserHibernateDAO implements UserDAO {
         }
     }
 
-    @Override
     public void createTable() {
     }
 
-    @Override
     public void dropTable() {
         Session session = DBHelper.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-
-            session.createSQLQuery("delete from user_tab").executeUpdate();
+            session.createQuery("delete User").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();

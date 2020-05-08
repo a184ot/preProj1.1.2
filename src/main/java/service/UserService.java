@@ -74,13 +74,11 @@ public class UserService implements Service {
         }
     }
 
-    @Override
     public void dropTable() {
 //        getUserJdbcDAO().dropTable();
         new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).dropTable();
     }
 
-    @Override
     public void createTable()  {
 //        getUserJdbcDAO().createTable();
         new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).createTable();

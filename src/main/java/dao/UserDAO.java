@@ -18,9 +18,7 @@ public interface UserDAO {
 
     boolean isUserExist(String name, Long age, String email);
 
-    void createTable();
 
-    void dropTable();
 
 
 }
