@@ -9,21 +9,13 @@ import java.util.List;
 
 public class UserJdbcDAO implements UserDAO {
 
-//    private Connection connection;
-//    private static Connection connection1;
-
-//    public UserJdbcDAO(Connection connection) {
-//        this.connection = connection1;
-//    }
-
     private Connection connection;
 
     public UserJdbcDAO(Connection connection) {
         this.connection = connection;
     }
-
     @Override
-    public  void addUser(User user) {
+    public void addUser(User user) {
         try (PreparedStatement stmt = connection.prepareStatement("insert into user_tab (name, age, email) values (?, ?, ?)")) {
             stmt.setString(1, user.getName());
             stmt.setLong(2, user.getAge());
@@ -34,7 +26,7 @@ public class UserJdbcDAO implements UserDAO {
     }
 
     @Override
-    public  void updateUser(User user) {
+    public void updateUser(User user) {
         try (PreparedStatement stmt = connection.prepareStatement("update user_tab set name=? , age=? , email=? where id=?")) {
             stmt.setString(1, user.getName());
             stmt.setLong(2,user.getAge());
@@ -46,30 +38,13 @@ public class UserJdbcDAO implements UserDAO {
     }
 
     @Override
-    public  void deleteUser(Long id) {
+    public void deleteUser(Long id) {
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM user_tab WHERE id = ?");
-            stmt.setLong(1, id);
+            stmt.setLong(1,id);
             stmt.executeUpdate();
         } catch (SQLException t) {
         }
-    }
-
-    @Override
-    public User getUserById(Long id) {
-        try (PreparedStatement stmt = connection.prepareStatement("select * from user_tab where id = ?")) {
-            stmt.setLong(1, id);
-            ResultSet result = stmt.executeQuery();
-            result.next();
-            String name = result.getString(2);
-            Long age = result.getLong(3);
-            String email = result.getString(4);
-//            return (User)result;
-            return new User(id, name, age, email);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 
@@ -93,11 +68,28 @@ public class UserJdbcDAO implements UserDAO {
     }
 
     @Override
+    public User getUserById(Long id) {
+        try (PreparedStatement stmt = connection.prepareStatement("select * from user_tab where id= ?")) {
+            stmt.setLong(1,id);
+            ResultSet result = stmt.executeQuery();
+            result.next();
+            String name = result.getString(2);
+            Long age = result.getLong(3);
+            String email = result.getString(4);
+            return new User(id, name, age, email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public boolean isUserExist(String name, Long age, String email) {
-        try (PreparedStatement stmt = connection.prepareStatement("SELECT ROW_COUNT () FROM user_tab WHERE name=? and age=? and email=?")) {
-            stmt.setString(1, name);
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT ROW_COUNT () FROM user_tab WHERE name= ? and age = ? and email= ?")) {
+//            stmt.execute("SELECT ROW_COUNT () FROM user_tab WHERE name= :name and age = :age and email= :email");
+            stmt.setString(1,name);
             stmt.setLong(2,age);
-            stmt.setString(3, email);
+            stmt.setString(3,email);
             ResultSet result = stmt.executeQuery();
             result.next();
             return result.first();
@@ -123,3 +115,4 @@ public class UserJdbcDAO implements UserDAO {
         }
     }
 }
+

@@ -1,6 +1,5 @@
 package servlet;
 
-import exception.DBException;
 import model.User;
 import service.UserService;
 
@@ -18,7 +17,8 @@ public class StartServlet extends HttpServlet {
     private UserService userService;
 
     public void init() {
-        userService = new UserService();
+        //        userService = new UserService();
+//        userService = UserService.getInstance().;
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,10 +28,14 @@ public class StartServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        userService.createTable();
-        List<User> listUser = userService.getAllUsers();
+//        userService.createTable();
+        List<User> listUser = UserService.getInstance().getAllUsers();
+//        List<User> listUser1 = new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).getAllUsers();
+//        List<User> listUser = userService.getAllUsers();
+
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 }
+

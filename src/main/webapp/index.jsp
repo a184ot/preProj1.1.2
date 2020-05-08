@@ -19,7 +19,7 @@
         </tr>
         <c:forEach var="user" items="${listUser}">
             <tr>
-              <td><c:out value="${user.id}"/></td>
+                <td><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.age}"/></td>
                 <td><c:out value="${user.email}"/></td>
@@ -33,14 +33,14 @@
     </table>
 </div>
 <div style="text-align: center;">
-  <h2>
-    <button onclick="location.href='new'" ;>Add New User</button>
-    &nbsp;&nbsp;&nbsp;
-    <button onclick="location.href='list'" ;>List All Users</button>
-      &nbsp;&nbsp;&nbsp;
-    <button onclick="location.href='drop'" ;>Delete All Users</button>
+    <h2>
+        <button onclick="location.href='new'" ;>Add New User</button>
+        &nbsp;&nbsp;&nbsp;
+        <button onclick="location.href='list'" ;>List All Users</button>
+        &nbsp;&nbsp;&nbsp;
+        <button onclick="location.href='drop'" ;>Delete All Users</button>
 
-  </h2>
+    </h2>
 </div>
 </body>
 </html>

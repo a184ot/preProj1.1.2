@@ -1,7 +1,5 @@
 package servlet;
 
-//import com.mysql.jdbc.Connection;
-
 import model.User;
 import service.UserService;
 
@@ -20,7 +18,8 @@ public class UserServlet extends HttpServlet {
     private UserService userService;
 
     public void init() {
-        userService = new UserService();
+//        userService = new UserService();
+        userService = UserService.getInstance();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -49,7 +48,7 @@ public class UserServlet extends HttpServlet {
                 case "/update":
                     updateUser(request, response);
                     break;
-                    case "/drop":
+                case "/drop":
                     dropUser(request,response);
                     break;
                 default:
