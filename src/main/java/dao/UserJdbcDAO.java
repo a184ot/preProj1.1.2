@@ -1,7 +1,6 @@
 package dao;
 
 import model.User;
-import service.UserDAO;
 
 import java.sql.*;
 import java.util.ArrayList;

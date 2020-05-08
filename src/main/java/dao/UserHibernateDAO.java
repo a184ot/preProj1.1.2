@@ -4,7 +4,6 @@ import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import service.UserDAO;
 import util.DBHelper;
 
 import java.util.ArrayList;
