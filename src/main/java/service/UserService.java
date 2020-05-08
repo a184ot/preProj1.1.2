@@ -28,44 +28,17 @@ public class UserService {
         return userService;
     }
 
-//    private HibernateSessionFactoryUtil() { }
-
-//    public static SessionFactory getSessionFactory() {
-//        if (sessionFactory == null) {
-//            try {
-//                Configuration configuration = new Configuration().configure();
-//                configuration.addAnnotatedClass(User.class);
-//                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-//                sessionFactory = configuration.buildSessionFactory(builder.build());
-//
-//            } catch (Exception e) {
-//                System.out.println("Исключение!" + e);
-//            }
-//        }
-//        return sessionFactory;
-//    }
-
-
-
     public UserService() {
     }
 
-//    UserDAO userDAO = getUserDAO();
-
-
     public void updateUser(User user) throws SQLException {
 //        getUserJdbcDAO().updateUser(user);
-//        UserHibernateDAO.getInstance().updateUser(user);
-//        UserHibernateDAO(sessionFactory.openSession());
-//        UserHibernateDAO(DBHelper.getSessionFactory())
-//        UserHibernateDAO.getInstance().updateUser(user);
         new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).updateUser(user);
     }
 
 
     public User getUserById(Long id) {
 //        return getUserJdbcDAO().getUserById(id);
-
         return new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).getUserById(id);
     }
 
@@ -74,19 +47,10 @@ public class UserService {
 //        return getUserJdbcDAO().isUserExist(name, age, email);//jhv
         return new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).isUserExist(name, age, email);
     }
-    public boolean isUserExist2(String name, Long age, String email) {
-//        return getUserJdbcDAO().isUserExist(name, age, email);//jhv
-        return false;
-    }
 
     public List<User> getAllUsers() {
 //        return getUserJdbcDAO().getAllUsers();
         return new UserHibernateDAO(DBHelper.getSessionFactory().openSession()).getAllUsers();
-//        return  new UserHibernateDAO(sessionFactory.openSession()).getAllUsers();
-//        return new UserHibernateDAO(sessionFactory.openSession()).getAllUsers();
-//        return new UserHibernateDAO(new Session).getAllUsers();
-//        return UserHibernateDAO.getInstance().getAllUsers();
-//        return null;
     }
 
     public void deleteUser(Long id) throws SQLException {
@@ -136,37 +100,8 @@ public class UserService {
         }
     }
 
-    //    private static UserDAO getUserDAO() {
-//        return new UserDAO(getMysqlConnection());
-//    }
     private static UserJdbcDAO getUserJdbcDAO() {
         return new UserJdbcDAO(getMysqlConnection());
     }
-//    public void updateUserName(Long id, String name) throws SQLException {
-//        userDAO.updateUserName(id, name);
-//    }
-//
-//    public void updateUserAge(Long id, Long age) throws SQLException {
-//        userDAO.updateUserAge(id, age);
-//    }
-//
-//    public void updateUserEmail(Long id, String email) throws SQLException {
-//        userDAO.updateUserEmail(id, email);
-//    }
-//    public List<User> getAllUsersByName(String name) {
-//        try {
-//            return userDAO.getAllUsersByName(name);
-//        } catch (SQLException e) {
-//            return null;
-//        }
-//    }
-//
-//    public List<User> getAllUsersByAddress(String email) {
-//        try {
-//            return userDAO.getAllUsersByAddress(email);
-//        } catch (SQLException e) {
-//            return null;
-//        }
-//    }
 }
 

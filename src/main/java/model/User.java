@@ -73,9 +73,7 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
-
         User user = (User) o;
-
         if (getAge() != user.getAge()) return false;
         if (!getName().equals(user.getName())) return false;
         return getEmail() != null ? getEmail().equals(user.getEmail()) : user.getEmail() == null;

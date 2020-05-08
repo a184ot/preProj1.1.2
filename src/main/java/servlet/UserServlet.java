@@ -18,7 +18,6 @@ public class UserServlet extends HttpServlet {
     private UserService userService;
 
     public void init() {
-//        userService = new UserService();
         userService = UserService.getInstance();
     }
 

@@ -14,46 +14,20 @@ public class UserHibernateDAO implements UserDAO {
 
     private Session session;
 
-    public UserHibernateDAO (Session session) {
+    public UserHibernateDAO(Session session) {
         this.session = session;
     }
-//public UserHibernateDAO(){}
-
-//    private Session session;
-//
-//    public UserHibernateDAO(Session session) {
-//        this.session = session;
-//    }
-
-
-//    private static UserHibernateDAO userHibernateDAO;
-//
-//    private SessionFactory sessionFactory ;
-//
-//    private UserHibernateDAO(SessionFactory sessionFactory) {
-//        this.sessionFactory = sessionFactory;
-//    }
-//
-//    public static UserHibernateDAO getInstance() {
-//        if (userHibernateDAO == null) {
-//            userHibernateDAO = new UserHibernateDAO(DBHelper.getSessionFactory());
-//        }
-//        return userHibernateDAO;
-//    }
 
     @Override
     public void addUser(User user) {
-
         Session session = DBHelper.getSessionFactory().openSession();
-//        Session session = getInstance().sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.save(user);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
-        }finally {
-
+        } finally {
             session.close();
         }
     }
@@ -72,11 +46,10 @@ public class UserHibernateDAO implements UserDAO {
                     .setParameter("name", name)
                     .setParameter("age", age)
                     .setParameter("email", email);
-
             query.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -84,35 +57,29 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public void deleteUser(Long id) {
         Session session = DBHelper.getSessionFactory().openSession();
-
         try {
             Query query = session.createQuery("delete from User where id = :id").setParameter("id", id);
             query.executeUpdate();
-        }catch (Exception e){
-
-        }finally {
+        } catch (Exception e) {
+        } finally {
             session.close();
         }
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> userList = new ArrayList() ;
-
+        List<User> userList = new ArrayList();
         Session session = DBHelper.getSessionFactory().openSession();
-
         Transaction transaction = session.beginTransaction();
         try {
-
-            userList= session.createQuery("FROM User").list();
+            userList = session.createQuery("FROM User").list();
             transaction.commit();
             return userList;
         } catch (Exception e) {
-
         } finally {
             session.close();
         }
-        return userList;// session fabric twice
+        return userList;
     }
 
     @Override
@@ -121,11 +88,11 @@ public class UserHibernateDAO implements UserDAO {
         try {
             Query query = session.createQuery("from User where id= :id");
             query.setParameter("id", id);
-            User user= (User)query.uniqueResult();
+            User user = (User) query.uniqueResult();
             return user;
-        }catch (Exception r){
+        } catch (Exception r) {
             return null;
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -139,9 +106,9 @@ public class UserHibernateDAO implements UserDAO {
             query.setParameter("age", age);
             query.setParameter("email", email);
             return query.uniqueResult() != null;
-        }catch (Exception r){
+        } catch (Exception r) {
             return false;
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -156,7 +123,6 @@ public class UserHibernateDAO implements UserDAO {
         Transaction transaction = session.beginTransaction();
         try {
             session.createSQLQuery("delete from user_tab").executeUpdate();
-//            session.createSQLQuery("TRUNCATE TABLE User").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
