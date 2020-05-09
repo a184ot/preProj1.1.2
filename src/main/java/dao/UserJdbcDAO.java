@@ -12,7 +12,13 @@ public class UserJdbcDAO implements UserDAO {
 
     public UserJdbcDAO(Connection connection) {
         this.connection = connection;
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+        }
     }
+
+
 
     @Override
     public void addUser(User user) {
@@ -21,8 +27,13 @@ public class UserJdbcDAO implements UserDAO {
             stmt.setLong(2, user.getAge());
             stmt.setString(3, user.getEmail());
             stmt.executeUpdate();
+            connection.commit();
         } catch (SQLException t) {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
         }
+    }
     }
 
     @Override
@@ -33,7 +44,12 @@ public class UserJdbcDAO implements UserDAO {
             stmt.setString(3, user.getEmail());
             stmt.setLong(4, user.getId());
             stmt.executeUpdate();
+            connection.commit();
         } catch (SQLException t) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+            }
         }
     }
 
@@ -43,7 +59,12 @@ public class UserJdbcDAO implements UserDAO {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM user_tab WHERE id = ?");
             stmt.setLong(1, id);
             stmt.executeUpdate();
+            connection.commit();
         } catch (SQLException t) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+            }
         }
     }
 
@@ -62,7 +83,6 @@ public class UserJdbcDAO implements UserDAO {
                 list.add(new User(id, name, age, email));
             }
         } catch (SQLException t) {
-
         }
         return list;
     }
@@ -100,14 +120,24 @@ public class UserJdbcDAO implements UserDAO {
     public void createTable() {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute("create table if not exists user_tab (id bigint auto_increment, name varchar(256), age bigint, email varchar(256), primary key (id))");
+            connection.commit();
         } catch (SQLException t) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+            }
         }
     }
 
     public void dropTable() {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DROP TABLE IF EXISTS user_tab");
+            connection.commit();
         } catch (SQLException t) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+            }
         }
     }
 }
