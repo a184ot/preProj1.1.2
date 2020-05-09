@@ -1,6 +1,5 @@
 package util;
 
-import dao.UserJdbcDAO;
 import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -49,7 +48,7 @@ public class DBHelper {
     }
 
 
-    private static Connection getMysqlConnection() {
+    private static Connection mysqlConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
             StringBuilder url = new StringBuilder();
@@ -70,8 +69,8 @@ public class DBHelper {
         }
     }
 
-    public static UserJdbcDAO getUserJdbcDAO() {
-        return new UserJdbcDAO(getMysqlConnection());
+    public static Connection getMysqlConnection() {
+        return mysqlConnection();
     }
 
 }
