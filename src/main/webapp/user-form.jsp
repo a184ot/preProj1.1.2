@@ -52,7 +52,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button onclick="location.href='Save'" ;>Save User</button>
+                        <button onclick="location.href='list'" ;>Save User</button>
                     </td>
                 </tr>
             </table>
@@ -60,11 +60,11 @@
 </div>
 <div style="text-align: center;">
     <h2>
-        <button onclick="location.href='new'" ;>Add New User</button>
+        <button onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
         <button onclick="location.href='list'" ;>List All Users</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='drop'" ;>Delete All Users</button>
+        <button onclick="location.href='delete'" ;>Delete All Users</button>
     </h2>
 </div>
 </body>

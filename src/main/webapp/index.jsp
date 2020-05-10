@@ -24,7 +24,7 @@
                 <td><c:out value="${user.age}"/></td>
                 <td><c:out value="${user.email}"/></td>
                 <td>
-                    <button onclick="location.href='edit?id=<c:out value='${user.id}'/>'" ;>Edit</button>
+                    <button onclick="location.href='update?id=<c:out value='${user.id}'/>'" ;>Edit</button>
                     &nbsp;&nbsp;&nbsp;
                     <button onclick="location.href='delete?id=<c:out value='${user.id}'/>'">Delete</button>
                 </td>
@@ -34,11 +34,11 @@
 </div>
 <div style="text-align: center;">
     <h2>
-        <button onclick="location.href='new'" ;>Add New User</button>
+        <button onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
         <button onclick="location.href='list'" ;>List All Users</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='drop'" ;>Delete All Users</button>
+        <button onclick="location.href='delete'" ;>Delete All Users</button>
 
     </h2>
 </div>
