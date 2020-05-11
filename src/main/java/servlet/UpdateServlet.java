@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import service.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class UpdateServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
     ReadServlet readServlet = new ReadServlet();
+    UserDaoFactory userDaoFactory = new UserDaoFactory();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,7 +28,7 @@ public class UpdateServlet extends HttpServlet {
             throws ServletException, IOException {
         Long id = Long.valueOf(request.getParameter("id"));
         if (request.getParameter("name") == null) {
-            User existingUser = userService.getUserById(id);
+            User existingUser = userDaoFactory.getUserById(id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("update.jsp");
             request.setAttribute("user", existingUser);
             dispatcher.forward(request, response);
@@ -38,7 +40,7 @@ public class UpdateServlet extends HttpServlet {
         String email = request.getParameter("email");
         Long age = Long.valueOf(request.getParameter("age"));
         User user = new User(id, name, age, email);
-        userService.updateUser(user);
+        userDaoFactory.updateUser(user);
         readServlet.listUser(request,response);
     }
 

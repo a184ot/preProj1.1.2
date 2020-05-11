@@ -131,7 +131,7 @@ public class UserJdbcDAO implements UserDAO {
 
     public void dropTable() {
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("DROP TABLE IF EXISTS user_tab");
+            stmt.execute("DROP TABLE IF EXISTS user_tab");
             connection.commit();
         } catch (SQLException t) {
             try {

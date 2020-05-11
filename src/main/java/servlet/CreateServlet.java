@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import service.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class CreateServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
     ReadServlet readServlet = new ReadServlet();
+    UserDaoFactory userDaoFactory = new UserDaoFactory();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +35,7 @@ public class CreateServlet extends HttpServlet {
             String email = request.getParameter("email");
             Long age = Long.valueOf(request.getParameter("age"));
             User newUser = new User(name, age, email);
-            userService.addUser(newUser);
+            userDaoFactory.addUser(newUser);
         }
             readServlet.listUser(request, response);
     }

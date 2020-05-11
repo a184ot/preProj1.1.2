@@ -1,5 +1,6 @@
 package service;
 
+import dao.UserDAO;
 import dao.UserHibernateDAO;
 import dao.UserJdbcDAO;
 import model.User;
@@ -7,7 +8,7 @@ import util.DBHelper;
 
 import java.util.List;
 
-public class UserService implements Service {
+public class UserService implements UserDAO {
 
     private static UserService userService;
 
@@ -18,7 +19,7 @@ public class UserService implements Service {
         return userService;
     }
 
-    UserHibernateDAO userHibernateDAO = new UserHibernateDAO(DBHelper.getSessionFactory());
+    UserHibernateDAO userHibernateDAO = new UserHibernateDAO();
 
     @Override
     public void updateUser(User user) {
@@ -44,7 +45,7 @@ public class UserService implements Service {
 
     @Override
     public List<User> getAllUsers() {
-        
+
 //        return getUserJdbcDAO().getAllUsers();
         return userHibernateDAO.getAllUsers();
     }
@@ -78,7 +79,7 @@ public class UserService implements Service {
     }
 
     public static UserJdbcDAO getUserJdbcDAO() {
-        return new UserJdbcDAO(DBHelper.getMysqlConnection());
+        return new UserJdbcDAO(DBHelper.getInstance().getConnection());
     }
 
 }

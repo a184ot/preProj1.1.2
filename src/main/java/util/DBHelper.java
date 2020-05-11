@@ -1,10 +1,7 @@
 package util;
 
 import model.User;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -13,14 +10,16 @@ import java.sql.SQLException;
 
 public class DBHelper {
 
-    private static SessionFactory sessionFactory;
+    private static DBHelper dbHelper;
 
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            sessionFactory = createSessionFactory();
+    public static DBHelper getInstance() {
+        if (dbHelper == null) {
+            dbHelper = new DBHelper();
         }
-        return sessionFactory;
+        return dbHelper;
     }
+
+
 
 
     private static Configuration getMySqlConfiguration() {
@@ -45,15 +44,11 @@ public class DBHelper {
         return configuration;
     }
 
-
-
-    private static SessionFactory createSessionFactory() {
-        Configuration configuration = getMySqlConfiguration();
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        builder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = builder.build();
-        return configuration.buildSessionFactory(serviceRegistry);
+    public  Configuration getConfiguration() {
+        return getMySqlConfiguration();
     }
+
+
 
 
     private static Connection mysqlConnection() {
@@ -67,7 +62,7 @@ public class DBHelper {
                     append(PropertyReader.getProperty("db.name")).append("?").
                     append("user=").append(PropertyReader.getProperty("db.username")).append("&").          //login
                     append("password=").append(PropertyReader.getProperty("db.password")).append("&").
-                    append("&serverTimezone=").append(PropertyReader.getProperty("db.serverTimezone"));
+                    append("serverTimezone=").append(PropertyReader.getProperty("db.serverTimezone"));
             String url = urlS.toString();
             Connection connection = DriverManager.getConnection(url);
             return connection;
@@ -77,7 +72,7 @@ public class DBHelper {
         }
     }
 
-    public static Connection getMysqlConnection() {
+    public Connection getConnection() {
         return mysqlConnection();
     }
 

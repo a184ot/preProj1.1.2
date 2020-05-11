@@ -37,7 +37,7 @@
         &nbsp;&nbsp;&nbsp;
         <button onclick="location.href='list'" ;>List All Users</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='delete'" ;>Delete All Users</button>
+<%--        <button onclick="location.href='delete'" ;>Delete All Users</button>--%>
 
     </h2>
 </div>

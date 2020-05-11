@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import service.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @WebServlet("/list")
 public class ReadServlet extends HttpServlet {
+    UserDaoFactory userDaoFactory = new UserDaoFactory();
     UserService userService = UserService.getInstance();
 
 
@@ -29,7 +31,7 @@ public class ReadServlet extends HttpServlet {
 
     protected void listUser(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        List<User> listUser = userService.getAllUsers();
+        List<User> listUser = userDaoFactory.getAllUsers();
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("read.jsp");
         dispatcher.forward(request, response);
