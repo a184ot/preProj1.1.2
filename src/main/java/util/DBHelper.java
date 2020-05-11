@@ -27,22 +27,25 @@ public class DBHelper {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
 
-
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/db_example?serverTimezone=UTC");
-        configuration.setProperty("hibernate.connection.username", "root");
-        configuration.setProperty("hibernate.connection.password", "1100");
-        configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+        configuration.setProperty("hibernate.dialect", PropertyReader.getProperty("h.dialect"));
+        configuration.setProperty("hibernate.connection.driver_class", PropertyReader.getProperty("db.driver"));
+        StringBuilder urlH = new StringBuilder();
+        urlH.append(PropertyReader.getProperty("db.type")).
+                append(PropertyReader.getProperty("db.host")).append(":").
+                append(PropertyReader.getProperty("db.port")).append("/").
+                append(PropertyReader.getProperty("db.name")).append("?").
+                append("serverTimezone=").append(PropertyReader.getProperty("db.serverTimezone"));
+        String hURL = urlH.toString();
+        configuration.setProperty("hibernate.connection.url", hURL);
+        configuration.setProperty("hibernate.connection.username", PropertyReader.getProperty("db.username"));
+        configuration.setProperty("hibernate.connection.password", PropertyReader.getProperty("db.password"));
+        configuration.setProperty("hibernate.show_sql", PropertyReader.getProperty("h.show_sql"));
+        configuration.setProperty("hibernate.hbm2ddl.auto", PropertyReader.getProperty("h.hbm2ddl.auto"));
         configuration.setProperty("hibernate.current_session_context_class", "thread");
-//        try {
-//            String prop = PropertyReader.getProperty("h.dtiver");
-//        } catch (IOException e) {
-//        }
-
         return configuration;
     }
+
+
 
     private static SessionFactory createSessionFactory() {
         Configuration configuration = getMySqlConfiguration();
@@ -55,18 +58,18 @@ public class DBHelper {
 
     private static Connection mysqlConnection() {
         try {
-            DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
-            StringBuilder url = new StringBuilder();
-            url.
-                    append("jdbc:mysql://").        //db type
-                    append("localhost:").           //host name
-                    append("3306/").                //port
-                    append("db_example?").          //db name
-                    append("user=root&").          //login
-                    append("password=1100").
-                    append("&serverTimezone=UTC");
-            System.out.println("URL: " + url + "\n");
-            Connection connection = DriverManager.getConnection(url.toString());
+            DriverManager.registerDriver((Driver) Class.forName(PropertyReader.getProperty("db.driver")).newInstance());
+            StringBuilder urlS = new StringBuilder();
+            urlS.
+                    append(PropertyReader.getProperty("db.type")).
+                    append(PropertyReader.getProperty("db.host")).append(":").
+                    append(PropertyReader.getProperty("db.port")).append("/").
+                    append(PropertyReader.getProperty("db.name")).append("?").
+                    append("user=").append(PropertyReader.getProperty("db.username")).append("&").          //login
+                    append("password=").append(PropertyReader.getProperty("db.password")).append("&").
+                    append("&serverTimezone=").append(PropertyReader.getProperty("db.serverTimezone"));
+            String url = urlS.toString();
+            Connection connection = DriverManager.getConnection(url);
             return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();

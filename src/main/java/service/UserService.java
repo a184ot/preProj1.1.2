@@ -44,6 +44,7 @@ public class UserService implements Service {
 
     @Override
     public List<User> getAllUsers() {
+        
 //        return getUserJdbcDAO().getAllUsers();
         return userHibernateDAO.getAllUsers();
     }
