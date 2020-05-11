@@ -1,21 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User List</title>
+    <title>Read User</title>
 </head>
 <body>
-
 <div align="center">
-    <table >
+    <table width="80%">
         <caption><h2>List of Users</h2></caption>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Email</th>
-            <th>Actions</th>
+            <th align="left">ID</th>
+            <th align="left">Name</th>
+            <th align="left">Age</th>
+            <th align="left">Email</th>
+            <th align="left">Actions</th>
         </tr>
         <c:forEach var="user" items="${listUser}">
             <tr>
@@ -32,6 +30,7 @@
         </c:forEach>
     </table>
 </div>
+<hr>
 <div style="text-align: center;">
     <h2>
         <button onclick="location.href='create'" ;>Add New User</button>
@@ -42,5 +41,6 @@
 
     </h2>
 </div>
+
 </body>
 </html>
