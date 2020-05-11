@@ -57,7 +57,7 @@ public class UserService implements Service {
     @Override
     public void addUser(User user) {
 
-        if (!isUserExist(user.getName(), user.getAge(), user.getEmail())) {
+        if (isUserExist(user.getName(), user.getAge(), user.getEmail())==false) {
 
 //            getUserJdbcDAO().addUser(user);
             userHibernateDAO.addUser(user);

@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/create")
 public class CreateServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
-    ReadServlet readServlet;
+    ReadServlet readServlet = new ReadServlet();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,16 +25,17 @@ public class CreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("name") == null || request.getParameter("age") == null || request.getParameter("email") == null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
             dispatcher.forward(request, response);
+//            readServlet.listUser(request, response);
+        } else {
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            Long age = Long.valueOf(request.getParameter("age"));
+            User newUser = new User(name, age, email);
+            userService.addUser(newUser);
         }
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        Long age = Long.valueOf(request.getParameter("age"));
-        User newUser = new User(name, age, email);
-        userService.addUser(newUser);
-        readServlet.listUser(request, response);
-
+            readServlet.listUser(request, response);
     }
 
 

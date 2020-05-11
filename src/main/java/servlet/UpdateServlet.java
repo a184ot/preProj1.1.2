@@ -27,7 +27,7 @@ public class UpdateServlet extends HttpServlet {
         Long id = Long.valueOf(request.getParameter("id"));
         if (request.getParameter("name") == null) {
             User existingUser = userService.getUserById(id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("update.jsp");
             request.setAttribute("user", existingUser);
             dispatcher.forward(request, response);
         }

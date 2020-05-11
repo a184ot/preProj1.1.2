@@ -31,7 +31,7 @@ public class ReadServlet extends HttpServlet {
             throws IOException, ServletException {
         List<User> listUser = userService.getAllUsers();
         request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("read.jsp");
         dispatcher.forward(request, response);
     }
 

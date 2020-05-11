@@ -36,6 +36,11 @@ public class DBHelper {
         configuration.setProperty("hibernate.show_sql", "true");
         configuration.setProperty("hibernate.hbm2ddl.auto", "create");
         configuration.setProperty("hibernate.current_session_context_class", "thread");
+//        try {
+//            String prop = PropertyReader.getProperty("h.dtiver");
+//        } catch (IOException e) {
+//        }
+
         return configuration;
     }
 
