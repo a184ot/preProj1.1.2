@@ -1,7 +1,7 @@
 package service;
 
 import dao.UserDAO;
-import dao.UserHibernateDAO;
+import dao.UserDaoFactory;
 import dao.UserJdbcDAO;
 import model.User;
 import util.DBHelper;
@@ -19,68 +19,56 @@ public class UserService implements UserDAO {
         return userService;
     }
 
-    UserHibernateDAO userHibernateDAO = new UserHibernateDAO();
+    private UserDaoFactory userDaoFactory = UserDaoFactory.getInstance();
+
+
 
     @Override
     public void updateUser(User user) {
-//        getUserJdbcDAO().updateUser(user);
         if (!isUserExist(user.getName(),user.getAge(),user.getEmail())) {
-            userHibernateDAO.updateUser(user);
-
+            userDaoFactory.updateUser(user);
         }
 
     }
 
     @Override
     public User getUserById(Long id) {
-//        return getUserJdbcDAO().getUserById(id);
-        return userHibernateDAO.getUserById(id);
+        return userDaoFactory.getUserById(id);
     }
 
     @Override
     public boolean isUserExist(String name, Long age, String email) {
-//        return getUserJdbcDAO().isUserExist(name, age, email);//jhv
-        return userHibernateDAO.isUserExist(name, age, email);
+        return userDaoFactory.isUserExist(name, age, email);
     }
 
     @Override
     public List<User> getAllUsers() {
-
-//        return getUserJdbcDAO().getAllUsers();
-        return userHibernateDAO.getAllUsers();
+        return userDaoFactory.getAllUsers();
     }
 
     @Override
     public void deleteUser(Long id) {
-//        getUserJdbcDAO().deleteUser(id);
-        userHibernateDAO.deleteUser(id);
+        userDaoFactory.deleteUser(id);
     }
 
     @Override
     public void addUser(User user) {
 
         if (isUserExist(user.getName(), user.getAge(), user.getEmail())==false) {
-
-//            getUserJdbcDAO().addUser(user);
-            userHibernateDAO.addUser(user);
-//        } else {
-//            return false;
+            userDaoFactory.addUser(user);
         }
     }
 
     public void dropTable() {
-//        getUserJdbcDAO().dropTable();
-        userHibernateDAO.dropTable();
+        userDaoFactory.dropTable();
     }
 
     public void createTable()  {
-//        getUserJdbcDAO().createTable();
-        userHibernateDAO.createTable();
+        userDaoFactory.createTable();
     }
 
     public static UserJdbcDAO getUserJdbcDAO() {
         return new UserJdbcDAO(DBHelper.getInstance().getConnection());
     }
-
 }
 

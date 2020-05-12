@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserDaoFactory;
+import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -35,7 +35,7 @@ public class CreateServlet extends HttpServlet {
             String email = request.getParameter("email");
             Long age = Long.valueOf(request.getParameter("age"));
             User newUser = new User(name, age, email);
-            userDaoFactory.addUser(newUser);
+            userService.addUser(newUser);
         }
             readServlet.listUser(request, response);
     }

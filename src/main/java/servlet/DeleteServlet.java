@@ -1,6 +1,6 @@
 package servlet;
 
-import service.UserDaoFactory;
+import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -27,10 +27,10 @@ public class DeleteServlet extends HttpServlet {
 
         if (request.getParameter("id") != null) {
             Long id = Long.valueOf(request.getParameter("id"));
-            userDaoFactory.deleteUser(id);
+            userService.deleteUser(id);
         } else {
-            userDaoFactory.dropTable();
-            userDaoFactory.createTable();
+            userService.dropTable();
+            userService.createTable();
         }
         readServlet.listUser(request, response);
     }

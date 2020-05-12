@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserDaoFactory;
+import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -31,7 +31,7 @@ public class ReadServlet extends HttpServlet {
 
     protected void listUser(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        List<User> listUser = userDaoFactory.getAllUsers();
+        List<User> listUser = userService.getAllUsers();
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("read.jsp");
         dispatcher.forward(request, response);

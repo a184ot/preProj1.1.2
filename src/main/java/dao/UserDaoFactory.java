@@ -1,8 +1,5 @@
-package service;
+package dao;
 
-import dao.UserDAO;
-import dao.UserHibernateDAO;
-import dao.UserJdbcDAO;
 import model.User;
 import util.DBHelper;
 import util.PropertyReader;
@@ -10,6 +7,15 @@ import util.PropertyReader;
 import java.util.List;
 
 public class UserDaoFactory implements UserDAO {
+
+    private static UserDaoFactory userDaoFactory;
+
+    public static UserDaoFactory getInstance() {
+        if (userDaoFactory == null) {
+            userDaoFactory = new UserDaoFactory();
+        }
+        return userDaoFactory;
+    }
 
     private final String DAOTYPE = PropertyReader.getProperty("daotype");
 
@@ -23,7 +29,6 @@ public class UserDaoFactory implements UserDAO {
 
     @Override
     public void addUser(User user) {
-        if (!isUserExist(user.getName(), user.getAge(), user.getEmail())) {
             switch (DAOTYPE) {
                 case "hibernate":
                     userHibernateDAO.addUser(user);
@@ -33,13 +38,11 @@ public class UserDaoFactory implements UserDAO {
                     break;
                 default:
                     throw new IllegalArgumentException("Wrong DAO type:" + DAOTYPE);
-            }
         }
     }
 
     @Override
     public void updateUser(User user) {
-        if (!isUserExist(user.getName(),user.getAge(),user.getEmail())) {
             switch (DAOTYPE) {
                 case "hibernate":
                     userHibernateDAO.updateUser(user);
@@ -49,7 +52,6 @@ public class UserDaoFactory implements UserDAO {
                     break;
                 default:
                     throw new IllegalArgumentException("Wrong DAO type:" + DAOTYPE);
-            }
         }
     }
 

@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserDaoFactory;
+import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -19,8 +19,8 @@ public class StartServlet extends HttpServlet {
 UserService userService = UserService.getInstance();
 UserDaoFactory userDaoFactory = new UserDaoFactory();
     public void init() {
-userDaoFactory.dropTable();
-userDaoFactory.createTable();
+userService.dropTable();
+userService.createTable();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +30,7 @@ userDaoFactory.createTable();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<User> listUser = userDaoFactory.getAllUsers();
+        List<User> listUser = userService.getAllUsers();
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("read.jsp");
         dispatcher.forward(request, response);
