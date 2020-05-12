@@ -31,7 +31,8 @@ public class CreateServlet extends HttpServlet {
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             Long age = Long.valueOf(request.getParameter("age"));
-            User newUser = new User(name, age, email);
+            String role = "user";
+            User newUser = new User(name, age, email, role);
             userService.addUser(newUser);
         }
             readServlet.listUser(request, response);

@@ -13,6 +13,7 @@
             <th align="left">Name</th>
             <th align="left">Age</th>
             <th align="left">Email</th>
+            <th align="left">Role</th>
             <th align="left">Actions</th>
         </tr>
         <c:forEach var="user" items="${listUser}">
@@ -21,6 +22,7 @@
                 <td><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.age}"/></td>
                 <td><c:out value="${user.email}"/></td>
+                <td><c:out value="${user.role}"/></td>
                 <td>
                     <button onclick="location.href='update?id=<c:out value='${user.id}'/>'" ;>Edit</button>
                     &nbsp;&nbsp;&nbsp;

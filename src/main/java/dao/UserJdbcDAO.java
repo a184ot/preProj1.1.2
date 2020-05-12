@@ -38,11 +38,12 @@ public class UserJdbcDAO implements UserDAO {
 
     @Override
     public void updateUser(User user) {
-        try (PreparedStatement stmt = connection.prepareStatement("update user_tab set name=? , age=? , email=? where id=?")) {
+        try (PreparedStatement stmt = connection.prepareStatement("update user_tab set name=? , age=? , email=? , role=? where id=?")) {
             stmt.setString(1, user.getName());
             stmt.setLong(2, user.getAge());
             stmt.setString(3, user.getEmail());
-            stmt.setLong(4, user.getId());
+            stmt.setString(4, user.getRole());
+            stmt.setLong(5, user.getId());
             stmt.executeUpdate();
             connection.commit();
         } catch (SQLException t) {
@@ -80,7 +81,8 @@ public class UserJdbcDAO implements UserDAO {
                 String name = result.getString(2);
                 Long age = result.getLong(3);
                 String email = result.getString(4);
-                list.add(new User(id, name, age, email));
+                String role = result.getString(5);
+                list.add(new User(id, name, age, email, role));
             }
         } catch (SQLException t) {
         }
@@ -96,7 +98,8 @@ public class UserJdbcDAO implements UserDAO {
             String name = result.getString(2);
             Long age = result.getLong(3);
             String email = result.getString(4);
-            return new User(id, name, age, email);
+            String role = result.getString(5);
+            return new User(id, name, age, email, role);
         } catch (SQLException e) {
             return null;
         }
@@ -119,7 +122,7 @@ public class UserJdbcDAO implements UserDAO {
 
     public void createTable() {
         try (Statement stmt = connection.createStatement()) {
-            stmt.execute("create table if not exists user_tab (id bigint auto_increment, name varchar(256), age bigint, email varchar(256), primary key (id))");
+            stmt.execute("create table if not exists user_tab (id bigint auto_increment, name varchar(256), age bigint, email varchar(256), role varchar(256), primary key (id))");
             connection.commit();
         } catch (SQLException t) {
             try {

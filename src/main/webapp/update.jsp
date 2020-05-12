@@ -39,6 +39,23 @@
                         />
                     </td>
                 </tr>
+
+                <tr>
+                    <th>Role:</th>
+                    <td>
+                        <select name="role">
+                            <c:if test="${user.role == 'user'}">
+                                <option selected value="user">user</option>
+                                <option value="admin">admin</option>
+                            </c:if>
+                            <c:if test="${user.role == 'admin'}">
+                                <option value="user">user</option>
+                                <option selected value="admin">admin</option>
+                            </c:if>
+                        </select>
+                    </td>
+                </tr>
+
                 <tr>
                     <td colspan="2" align="center">
                         <button onclick="location.href='update'" ;>Save User</button>

@@ -37,7 +37,8 @@ public class UpdateServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         Long age = Long.valueOf(request.getParameter("age"));
-        User user = new User(id, name, age, email);
+        String role = request.getParameter("role");
+        User user = new User(id, name, age, email, role);
         userService.updateUser(user);
         readServlet.listUser(request,response);
     }

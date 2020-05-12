@@ -20,21 +20,26 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "role")
+    private String role;
+
     public User() {
 
     }
 
-    public User(String name, long age, String email) {
+    public User(String name, long age, String email, String role) {
         this.name = name;
         this.age = age;
         this.email = email;
+        this.role = role;
     }
 
-    public User(long id, String name, long age, String email) {
+    public User(long id, String name, long age, String email, String role) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.role = role;
     }
 
     public long getId() {
@@ -69,21 +74,31 @@ public class User {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        if (getAge() != user.getAge()) return false;
-        if (!getName().equals(user.getName())) return false;
-        return getEmail() != null ? getEmail().equals(user.getEmail()) : user.getEmail() == null;
+
+        if (!name.equals(user.name)) return false;
+        if (!age.equals(user.age)) return false;
+        return email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + (int) (getAge() ^ (getAge() >>> 32));
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        int result = name.hashCode();
+        result = 31 * result + age.hashCode();
+        result = 31 * result + email.hashCode();
         return result;
     }
 }

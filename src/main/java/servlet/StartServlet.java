@@ -18,6 +18,8 @@ UserService userService = UserService.getInstance();
     public void init() {
 userService.dropTable();
 userService.createTable();
+User user = new User("admin", 21L, "ee@ee.ee", "admin");
+userService.addUser(user);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

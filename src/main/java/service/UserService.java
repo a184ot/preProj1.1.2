@@ -27,6 +27,10 @@ public class UserService implements UserDAO {
     public void updateUser(User user) {
         if (!isUserExist(user.getName(),user.getAge(),user.getEmail())) {
             userDaoFactory.updateUser(user);
+        }else {
+            if (user.getRole() != getInstance().getUserById(user.getId()).getRole()){
+                userDaoFactory.updateUser(user);
+            }
         }
 
     }
