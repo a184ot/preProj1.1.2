@@ -1,7 +1,6 @@
 package servlet;
 
 import model.User;
-import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @WebServlet("/list")
 public class ReadServlet extends HttpServlet {
-    UserDaoFactory userDaoFactory = new UserDaoFactory();
     UserService userService = UserService.getInstance();
 
 

@@ -1,7 +1,6 @@
 package servlet;
 
 import model.User;
-import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +15,6 @@ import java.io.IOException;
 public class UpdateServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
     ReadServlet readServlet = new ReadServlet();
-    UserDaoFactory userDaoFactory = new UserDaoFactory();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

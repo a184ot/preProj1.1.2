@@ -1,7 +1,6 @@
 package servlet;
 
 import model.User;
-import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +15,6 @@ import java.io.IOException;
 public class CreateServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
     ReadServlet readServlet = new ReadServlet();
-    UserDaoFactory userDaoFactory = new UserDaoFactory();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +27,6 @@ public class CreateServlet extends HttpServlet {
         if (request.getParameter("name") == null || request.getParameter("age") == null || request.getParameter("email") == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
             dispatcher.forward(request, response);
-//            readServlet.listUser(request, response);
         } else {
             String name = request.getParameter("name");
             String email = request.getParameter("email");

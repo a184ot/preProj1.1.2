@@ -1,6 +1,5 @@
 package servlet;
 
-import dao.UserDaoFactory;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -14,8 +13,6 @@ import java.io.IOException;
 public class DeleteServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
     ReadServlet readServlet = new ReadServlet();
-    UserDaoFactory userDaoFactory = new UserDaoFactory();
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
