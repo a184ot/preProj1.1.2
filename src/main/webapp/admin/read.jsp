@@ -11,6 +11,7 @@
         <tr>
             <th align="left">ID</th>
             <th align="left">Name</th>
+            <th align="left">Password</th>
             <th align="left">Age</th>
             <th align="left">Email</th>
             <th align="left">Role</th>
@@ -20,6 +21,7 @@
             <tr>
                 <td><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
+                <td><c:out value="${user.password}"/></td>
                 <td><c:out value="${user.age}"/></td>
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.role}"/></td>
@@ -37,7 +39,11 @@
     <h2>
         <button onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='list'" ;>List All Users</button>
+        <button onclick="location.href='admin'" ;>List All Users</button>
+        &nbsp;&nbsp;&nbsp;
+        <button onclick="location.href='logout'" ;>Logout</button>
+        &nbsp;&nbsp;&nbsp;
+        <button onclick="location.href='user'" ;>User page</button>
         &nbsp;&nbsp;&nbsp;
 <%--        <button onclick="location.href='delete'" ;>Delete All Users</button>--%>
 

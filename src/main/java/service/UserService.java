@@ -25,7 +25,7 @@ public class UserService implements UserDAO {
 
     @Override
     public void updateUser(User user) {
-        if (!isUserExist(user.getName(),user.getAge(),user.getEmail())) {
+        if (!isUserExist(user.getName(),user.getPassword())) {
             userDaoFactory.updateUser(user);
         }else {
             if (user.getRole() != getInstance().getUserById(user.getId()).getRole()){
@@ -41,8 +41,13 @@ public class UserService implements UserDAO {
     }
 
     @Override
-    public boolean isUserExist(String name, Long age, String email) {
-        return userDaoFactory.isUserExist(name, age, email);
+    public User getUserByName(String name) {
+        return userDaoFactory.getUserByName(name);
+    }
+
+    @Override
+    public boolean isUserExist(String name, String password) {
+        return userDaoFactory.isUserExist(name, password);
     }
 
     @Override
@@ -58,11 +63,12 @@ public class UserService implements UserDAO {
     @Override
     public void addUser(User user) {
 
-        if (isUserExist(user.getName(), user.getAge(), user.getEmail())==false) {
+        if (isUserExist(user.getName(), user.getPassword())==false) {
             userDaoFactory.addUser(user);
         }
     }
 
+/*
     public void dropTable() {
         userDaoFactory.dropTable();
     }
@@ -70,6 +76,7 @@ public class UserService implements UserDAO {
     public void createTable()  {
         userDaoFactory.createTable();
     }
+*/
 
     public static UserJdbcDAO getUserJdbcDAO() {
         return new UserJdbcDAO(DBHelper.getInstance().getConnection());

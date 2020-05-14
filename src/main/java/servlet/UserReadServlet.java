@@ -10,17 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
-@WebServlet("")
-public class StartServlet extends HttpServlet {
-UserService userService = UserService.getInstance();
-    public void init() {
-//userService.dropTable();
-//userService.createTable();
-User user = new User("admin","123456", 21L, "ee@ee.ee", "admin");
-userService.addUser(user);
-    }
+@WebServlet("/user")
+public class UserReadServlet extends HttpServlet {
+    UserService userService = UserService.getInstance();
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,10 +24,23 @@ userService.addUser(user);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<User> listUser = userService.getAllUsers();
+        listUser(request, response);
+    }
+
+    protected void listUser(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String name = String.valueOf(request.getSession().getAttribute("login"));
+        User user = userService.getUserByName(name);
+        List<User> listUser = new ArrayList<>();
+        listUser.add(user);
+
         request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userRead.jsp");
         dispatcher.forward(request, response);
     }
-}
 
+
+
+
+}

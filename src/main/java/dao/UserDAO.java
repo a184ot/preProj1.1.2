@@ -16,7 +16,9 @@ public interface UserDAO {
 
     User getUserById(Long id);
 
-    boolean isUserExist(String name, Long age, String email);
+    User getUserByName(String name);
+
+    boolean isUserExist(String name,  String password);
 
 
 

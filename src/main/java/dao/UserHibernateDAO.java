@@ -105,13 +105,27 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
-    public boolean isUserExist(String name, Long age, String email) {
+    public User getUserByName(String name) {
         Session session = getSessionFactory().openSession();
         try {
-            Query query = session.createQuery("select count (*) from User WHERE name = :name and age = :age and email = :email");
+            Query query = session.createQuery("from User where name= :name");
             query.setParameter("name", name);
-            query.setParameter("age", age);
-            query.setParameter("email", email);
+            User user = (User) query.uniqueResult();
+            return user;
+        } catch (Exception r) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean isUserExist(String name, String password) {
+        Session session = getSessionFactory().openSession();
+        try {
+            Query query = session.createQuery("select count (*) from User WHERE name = :name and password = :password");
+            query.setParameter("name", name);
+            query.setParameter("password", password);
             return (Long)query.uniqueResult() != 0L;
         } catch (Exception r) {
             return false;
@@ -120,7 +134,7 @@ public class UserHibernateDAO implements UserDAO {
         }
     }
 
-    public void createTable() {
+/*    public void createTable() {
     }
 
     public void dropTable() {
@@ -134,6 +148,6 @@ public class UserHibernateDAO implements UserDAO {
         } finally {
             session.close();
         }
-    }
+    }*/
 }
 

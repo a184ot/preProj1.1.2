@@ -29,13 +29,16 @@ public class CreateServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             String name = request.getParameter("name");
+            String password = request.getParameter("password");
             String email = request.getParameter("email");
             Long age = Long.valueOf(request.getParameter("age"));
             String role = "user";
-            User newUser = new User(name, age, email, role);
+            User newUser = new User(name, password, age, email, role);
             userService.addUser(newUser);
         }
-            readServlet.listUser(request, response);
+//            readServlet.listUser(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+        dispatcher.forward(request, response);
     }
 
 

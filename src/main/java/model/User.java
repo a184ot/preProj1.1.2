@@ -14,6 +14,9 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "age")
     private Long age;
 
@@ -27,16 +30,18 @@ public class User {
 
     }
 
-    public User(String name, long age, String email, String role) {
+    public User(String name, String password, long age, String email, String role) {
         this.name = name;
+        this.password = password;
         this.age = age;
         this.email = email;
         this.role = role;
     }
 
-    public User(long id, String name, long age, String email, String role) {
+    public User(long id, String name, String password, long age, String email, String role) {
         this.id = id;
         this.name = name;
+        this.password = password;
         this.age = age;
         this.email = email;
         this.role = role;
@@ -56,6 +61,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public long getAge() {
@@ -82,6 +95,7 @@ public class User {
         this.role = role;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +104,7 @@ public class User {
         User user = (User) o;
 
         if (!name.equals(user.name)) return false;
+        if (!password.equals(user.password)) return false;
         if (!age.equals(user.age)) return false;
         return email.equals(user.email);
     }
@@ -97,6 +112,7 @@ public class User {
     @Override
     public int hashCode() {
         int result = name.hashCode();
+        result = 31 * result + password.hashCode();
         result = 31 * result + age.hashCode();
         result = 31 * result + email.hashCode();
         return result;

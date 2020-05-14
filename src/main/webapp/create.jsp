@@ -20,6 +20,13 @@
                                value="<c:out value='${user.name}' />"
                         />
                     </td>
+                </tr><tr>
+                    <th>User Password:</th>
+                    <td>
+                        <input type="text" name="password" size="45"
+                               value="<c:out value='${user.password}' />"
+                        />
+                    </td>
                 </tr>
                 <tr>
                     <th> Age:</th>
@@ -50,7 +57,7 @@
     <h2>
         <button onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='list'" ;>List All Users</button>
+        <button onclick="location.href='admin'" ;>List All Users</button>
         &nbsp;&nbsp;&nbsp;
 <%--        <button onclick="location.href='delete'" ;>Delete All Users</button>--%>
     </h2>

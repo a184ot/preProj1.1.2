@@ -2,6 +2,7 @@ package servlet;
 
 import service.UserService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,9 +27,10 @@ public class DeleteServlet extends HttpServlet {
             Long id = Long.valueOf(request.getParameter("id"));
             userService.deleteUser(id);
         } else {
-            userService.dropTable();
-            userService.createTable();
+//            userService.dropTable();
+//            userService.createTable();
         }
-        readServlet.listUser(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+        dispatcher.forward(request, response);
     }
 }

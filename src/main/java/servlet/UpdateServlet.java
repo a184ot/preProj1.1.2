@@ -31,16 +31,20 @@ public class UpdateServlet extends HttpServlet {
             request.setAttribute("user", existingUser);
             dispatcher.forward(request, response);
         }
-        if (request.getParameter("age") == null || request.getParameter("email") == null) {
-            readServlet.listUser(request, response);
+        if (request.getParameter("age") == null || request.getParameter("email") == null ||
+                request.getParameter("password") == null) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+            dispatcher.forward(request, response);
         }
         String name = request.getParameter("name");
+        String password = request.getParameter("password");
         String email = request.getParameter("email");
         Long age = Long.valueOf(request.getParameter("age"));
         String role = request.getParameter("role");
-        User user = new User(id, name, age, email, role);
+        User user = new User(id, name, password, age, email, role);
         userService.updateUser(user);
-        readServlet.listUser(request,response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+        dispatcher.forward(request, response);
     }
 
 

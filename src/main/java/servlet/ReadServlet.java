@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/list")
+@WebServlet("/admin")
 public class ReadServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
 
@@ -31,8 +31,9 @@ public class ReadServlet extends HttpServlet {
             throws IOException, ServletException {
         List<User> listUser = userService.getAllUsers();
         request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("read.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin/read.jsp");
         dispatcher.forward(request, response);
+
     }
 
 

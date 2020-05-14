@@ -94,18 +94,30 @@ public class UserDaoFactory implements UserDAO {
     }
 
     @Override
-    public boolean isUserExist(String name, Long age, String email) {
+    public User getUserByName(String name) {
         switch (DAOTYPE) {
             case "hibernate":
-                return userHibernateDAO.isUserExist(name, age, email);
+                return userHibernateDAO.getUserByName(name);
             case "jdbc":
-                return getUserJdbcDAO().isUserExist(name, age, email);
+                return getUserJdbcDAO().getUserByName(name);
             default:
                 throw new IllegalArgumentException("Wrong DAO type:" + DAOTYPE);
         }
     }
 
-    public void createTable () {
+    @Override
+    public boolean isUserExist(String name, String password) {
+        switch (DAOTYPE) {
+            case "hibernate":
+                return userHibernateDAO.isUserExist(name, password);
+            case "jdbc":
+                return getUserJdbcDAO().isUserExist(name, password);
+            default:
+                throw new IllegalArgumentException("Wrong DAO type:" + DAOTYPE);
+        }
+    }
+
+/*    public void createTable () {
         switch (DAOTYPE) {
             case "hibernate":
                 break;
@@ -128,5 +140,5 @@ public class UserDaoFactory implements UserDAO {
             default:
                 throw new IllegalArgumentException("Wrong DAO type:" + DAOTYPE);
         }
-    }
+    }*/
 }
