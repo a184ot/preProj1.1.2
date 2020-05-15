@@ -3,38 +3,20 @@ package dao;
 import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 import util.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserHibernateDAO implements UserDAO {
-    private static SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            sessionFactory = createSessionFactory();
-        }
-        return sessionFactory;
-    }
-
-
-    private static SessionFactory createSessionFactory() {
-        Configuration configuration = DBHelper.getInstance().getConfiguration();
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        builder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = builder.build();
-        return configuration.buildSessionFactory(serviceRegistry);
-    }
+//    UserHibernateDAO userHibernateDAO = new UserHibernateDAO();
+public static UserHibernateDAO userHibernateDAO = new UserHibernateDAO();
 
     @Override
     public void addUser(User user) {
-        Session session = getSessionFactory().openSession();
+        Session session = DBHelper.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.save(user);
@@ -48,7 +30,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void updateUser(User user) {
-        Session session = getSessionFactory().openSession();
+        Session session = DBHelper.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.update(user);
@@ -62,7 +44,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public void deleteUser(Long id) {
-        Session session = getSessionFactory().openSession();
+        Session session = DBHelper.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.delete(getUserById(id));
@@ -77,7 +59,7 @@ public class UserHibernateDAO implements UserDAO {
     @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList();
-        Session session = getSessionFactory().openSession();
+        Session session = DBHelper.getSessionFactory().openSession();
         try {
             userList = session.createQuery("FROM User").list();
             return userList;
@@ -91,7 +73,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public User getUserById(Long id) {
-        Session session = getSessionFactory().openSession();
+        Session session = DBHelper.getSessionFactory().openSession();
         try {
             Query query = session.createQuery("from User where id= :id");
             query.setParameter("id", id);
@@ -106,7 +88,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public User getUserByName(String name) {
-        Session session = getSessionFactory().openSession();
+        Session session = DBHelper.getSessionFactory().openSession();
         try {
             Query query = session.createQuery("from User where name= :name");
             query.setParameter("name", name);
@@ -121,7 +103,7 @@ public class UserHibernateDAO implements UserDAO {
 
     @Override
     public boolean isUserExist(String name, String password) {
-        Session session = getSessionFactory().openSession();
+        Session session = DBHelper.getSessionFactory().openSession();
         try {
             Query query = session.createQuery("select count (*) from User WHERE name = :name and password = :password");
             query.setParameter("name", name);
@@ -134,20 +116,6 @@ public class UserHibernateDAO implements UserDAO {
         }
     }
 
-/*    public void createTable() {
-    }
 
-    public void dropTable() {
-        Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.createQuery("delete User").executeUpdate();
-            transaction.commit();
-        } catch (Exception e) {
-            transaction.rollback();
-        } finally {
-            session.close();
-        }
-    }*/
 }
 

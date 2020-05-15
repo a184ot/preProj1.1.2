@@ -77,8 +77,6 @@
         <button onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
         <button onclick="location.href='admin'" ;>List All Users</button>
-        &nbsp;&nbsp;&nbsp;
-<%--        <button onclick="location.href='delete'" ;>Delete All Users</button>--%>
     </h2>
 </div>
 </body>

@@ -19,11 +19,6 @@ public class UpdateServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         Long id = Long.valueOf(request.getParameter("id"));
         if (request.getParameter("name") == null) {
             User existingUser = userService.getUserById(id);
@@ -33,7 +28,7 @@ public class UpdateServlet extends HttpServlet {
         }
         if (request.getParameter("age") == null || request.getParameter("email") == null ||
                 request.getParameter("password") == null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin");
             dispatcher.forward(request, response);
         }
         String name = request.getParameter("name");
@@ -45,6 +40,11 @@ public class UpdateServlet extends HttpServlet {
         userService.updateUser(user);
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
         dispatcher.forward(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
     }
 
 

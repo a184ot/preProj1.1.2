@@ -11,21 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/create")
+@WebServlet(urlPatterns = {"/admin/create", "/create" })
 public class CreateServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
-    ReadServlet readServlet = new ReadServlet();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         if (request.getParameter("name") == null || request.getParameter("age") == null || request.getParameter("email") == null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("create.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
             dispatcher.forward(request, response);
         } else {
             String name = request.getParameter("name");
@@ -36,9 +30,13 @@ public class CreateServlet extends HttpServlet {
             User newUser = new User(name, password, age, email, role);
             userService.addUser(newUser);
         }
-//            readServlet.listUser(request, response);
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
         dispatcher.forward(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
     }
 
 

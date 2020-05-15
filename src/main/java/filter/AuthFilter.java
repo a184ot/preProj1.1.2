@@ -1,4 +1,4 @@
-package servlet;
+package filter;
 
 import service.UserService;
 
@@ -52,12 +52,14 @@ public class AuthFilter implements Filter {
 
         if (role.equals("admin")) {
             String ur = req.getRequestURI();
-            String admin = "";
-            if (ur.equals("/list")) {
-                ur = "/admin";
+
+
+            if (ur.equals("/login")){
+                RequestDispatcher dispatcher = req.getRequestDispatcher("admin");
+                dispatcher.forward(req, res);
             }
-            String path = admin + ur;
-            RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+//
+            RequestDispatcher dispatcher = req.getRequestDispatcher(ur);
             dispatcher.forward(req, res);
         } else if (role.equals("user")) {
             String ur = req.getRequestURI();

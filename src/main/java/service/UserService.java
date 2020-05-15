@@ -2,9 +2,7 @@ package service;
 
 import dao.UserDAO;
 import dao.UserDaoFactory;
-import dao.UserJdbcDAO;
 import model.User;
-import util.DBHelper;
 
 import java.util.List;
 
@@ -20,16 +18,17 @@ public class UserService implements UserDAO {
     }
 
     private UserDaoFactory userDaoFactory = UserDaoFactory.getInstance();
+    private UserDAO userDAO;
 
 
 
     @Override
     public void updateUser(User user) {
         if (!isUserExist(user.getName(),user.getPassword())) {
-            userDaoFactory.updateUser(user);
+            userDAO.updateUser(user);
         }else {
-            if (user.getRole() != getInstance().getUserById(user.getId()).getRole()){
-                userDaoFactory.updateUser(user);
+            if (!user.getRole().equals(getUserById(user.getId()).getRole())){
+                userDAO.updateUser(user);
             }
         }
 
@@ -37,49 +36,35 @@ public class UserService implements UserDAO {
 
     @Override
     public User getUserById(Long id) {
-        return userDaoFactory.getUserById(id);
+        return userDAO.getUserById(id);
     }
 
     @Override
     public User getUserByName(String name) {
-        return userDaoFactory.getUserByName(name);
+        return userDAO.getUserByName(name);
     }
 
     @Override
     public boolean isUserExist(String name, String password) {
-        return userDaoFactory.isUserExist(name, password);
+        return userDAO.isUserExist(name, password);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDaoFactory.getAllUsers();
+        return userDAO.getAllUsers();
     }
 
     @Override
     public void deleteUser(Long id) {
-        userDaoFactory.deleteUser(id);
+        userDAO.deleteUser(id);
     }
 
     @Override
     public void addUser(User user) {
-
-        if (isUserExist(user.getName(), user.getPassword())==false) {
-            userDaoFactory.addUser(user);
+        if (!isUserExist(user.getName(), user.getPassword())) {
+            userDAO.addUser(user);
         }
     }
 
-/*
-    public void dropTable() {
-        userDaoFactory.dropTable();
-    }
-
-    public void createTable()  {
-        userDaoFactory.createTable();
-    }
-*/
-
-    public static UserJdbcDAO getUserJdbcDAO() {
-        return new UserJdbcDAO(DBHelper.getInstance().getConnection());
-    }
 }
 

@@ -1,7 +1,10 @@
 package util;
 
 import model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -18,14 +21,26 @@ public class DBHelper {
         }
         return dbHelper;
     }
+    private static SessionFactory sessionFactory;
+
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            sessionFactory = createSessionFactory();
+        }
+        return sessionFactory;
+    }
 
 
-
-
-    private static Configuration getMySqlConfiguration() {
+    private static SessionFactory createSessionFactory() {
+        Configuration configuration = getConfiguration();
+        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+        builder.applySettings(configuration.getProperties());
+        ServiceRegistry serviceRegistry = builder.build();
+        return configuration.buildSessionFactory(serviceRegistry);
+    }
+    private static Configuration getConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
-
         configuration.setProperty("hibernate.dialect", PropertyReader.getProperty("h.dialect"));
         configuration.setProperty("hibernate.connection.driver_class", PropertyReader.getProperty("db.driver"));
         StringBuilder urlH = new StringBuilder();
@@ -44,14 +59,8 @@ public class DBHelper {
         return configuration;
     }
 
-    public  Configuration getConfiguration() {
-        return getMySqlConfiguration();
-    }
 
-
-
-
-    private static Connection mysqlConnection() {
+    public static Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName(PropertyReader.getProperty("db.driver")).newInstance());
             StringBuilder urlS = new StringBuilder();
@@ -72,9 +81,6 @@ public class DBHelper {
         }
     }
 
-    public Connection getConnection() {
-        return mysqlConnection();
-    }
 
 }
 

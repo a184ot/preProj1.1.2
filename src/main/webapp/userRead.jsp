@@ -26,11 +26,6 @@
                 <td><c:out value="${user.age}"/></td>
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.role}"/></td>
-<%--                <td>--%>
-<%--                    <button onclick="location.href='update?id=<c:out value='${user.id}'/>'" ;>Edit</button>--%>
-<%--                    &nbsp;&nbsp;&nbsp;--%>
-<%--                    <button onclick="location.href='delete?id=<c:out value='${user.id}'/>'">Delete</button>--%>
-<%--                </td>--%>
             </tr>
         </c:forEach>
     </table>
@@ -45,9 +40,7 @@
 
         <button onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='list'" ;>List All Users</button>
-        &nbsp;&nbsp;&nbsp;
-        <%--        <button onclick="location.href='delete'" ;>Delete All Users</button>--%>
+        <button onclick="location.href='admin'" ;>List All Users</button>
         </c:if>
     </h2>
 

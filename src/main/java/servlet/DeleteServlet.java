@@ -13,24 +13,22 @@ import java.io.IOException;
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
     UserService userService = UserService.getInstance();
-    ReadServlet readServlet = new ReadServlet();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
         if (request.getParameter("id") != null) {
             Long id = Long.valueOf(request.getParameter("id"));
             userService.deleteUser(id);
         } else {
-//            userService.dropTable();
-//            userService.createTable();
+
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin");
         dispatcher.forward(request, response);
+    }
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
     }
 }

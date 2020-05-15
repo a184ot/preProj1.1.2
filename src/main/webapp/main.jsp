@@ -6,7 +6,7 @@
 </head>
 <body>
 <div align="center">
-    <form action="admin" method="post">
+    <form action="login" method="post">
         <table>
             <caption>
                 <h2>
@@ -17,7 +17,6 @@
                 <th>Login:</th>
                 <td>
                     <input type="text" name="login" size="45"
-<%--                           value="<c:out value='${user.name}' />"--%>
                     />
                 </td>
             </tr>
@@ -25,7 +24,6 @@
                 <th> Password:</th>
                 <td>
                     <input type="text" name="password" size="45"
-<%--                           value="<c:out value='${user.email}' />"--%>
                     />
                 </td>
             </tr>

@@ -19,12 +19,12 @@ public class UserReadServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        listUser(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        listUser(request, response);
+
     }
 
     protected void listUser(HttpServletRequest request, HttpServletResponse response)

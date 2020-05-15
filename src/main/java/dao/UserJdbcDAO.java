@@ -1,6 +1,7 @@
 package dao;
 
 import model.User;
+import util.DBHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,7 +19,9 @@ public class UserJdbcDAO implements UserDAO {
         }
     }
 
-
+    public static UserJdbcDAO getUserJdbcDAO() {
+        return new UserJdbcDAO(DBHelper.getConnection());
+    }
 
     @Override
     public void addUser(User user) {
@@ -145,28 +148,5 @@ public class UserJdbcDAO implements UserDAO {
         }
     }
 
-/*    public void createTable() {
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute("create table if not exists user_tab (id bigint auto_increment, name varchar(256), password varchar(256), age bigint, email varchar(256), role varchar(256), primary key (id))");
-            connection.commit();
-        } catch (SQLException t) {
-            try {
-                connection.rollback();
-            } catch (SQLException e) {
-            }
-        }
-    }
-
-    public void dropTable() {
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute("DROP TABLE IF EXISTS user_tab");
-            connection.commit();
-        } catch (SQLException t) {
-            try {
-                connection.rollback();
-            } catch (SQLException e) {
-            }
-        }
-    }*/
 }
 

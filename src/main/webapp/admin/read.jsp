@@ -44,9 +44,6 @@
         <button onclick="location.href='logout'" ;>Logout</button>
         &nbsp;&nbsp;&nbsp;
         <button onclick="location.href='user'" ;>User page</button>
-        &nbsp;&nbsp;&nbsp;
-<%--        <button onclick="location.href='delete'" ;>Delete All Users</button>--%>
-
     </h2>
 </div>
 
