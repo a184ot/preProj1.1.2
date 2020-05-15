@@ -16,13 +16,10 @@ public class UserDaoFactory {
     private static final String DAOTYPE = PropertyReader.getProperty("daotype");
 
 
-
-
-
     public static UserDAO getUserDao() {
         switch (DAOTYPE) {
             case "hibernate":
-                return UserHibernateDAO.userHibernateDAO;
+                return UserHibernateDAO.getHibernateDAO;
             case "jdbc":
                 return UserJdbcDAO.getUserJdbcDAO();
             default:

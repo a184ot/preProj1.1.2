@@ -1,6 +1,6 @@
 package filter;
 
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -28,13 +28,13 @@ public class AuthFilter implements Filter {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
         final HttpSession session = req.getSession();
-        UserService userService = UserService.getInstance();
+        UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
 
         if (session.getAttribute("login") != null && session.getAttribute("password") != null) {
             final String role = String.valueOf(session.getAttribute("role"));
             moveToMenu(req, res, role);
-        } else if (userService.isUserExist(login, password)) {
-            final String role = userService.getUserByName(login).getRole();
+        } else if (userServiceImpl.isUserExist(login, password)) {
+            final String role = userServiceImpl.getUserByName(login).getRole();
             req.getSession().setAttribute("password", password);
             req.getSession().setAttribute("login", login);
             req.getSession().setAttribute("role", role);

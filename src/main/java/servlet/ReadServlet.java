@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @WebServlet("/admin")
 public class ReadServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
+    UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +29,7 @@ public class ReadServlet extends HttpServlet {
 
     protected void listUser(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        List<User> listUser = userService.getAllUsers();
+        List<User> listUser = userServiceImpl.getAllUsers();
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin/read.jsp");
         dispatcher.forward(request, response);

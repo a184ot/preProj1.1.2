@@ -1,6 +1,6 @@
 package servlet;
 
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,13 +12,13 @@ import java.io.IOException;
 
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
+    UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("id") != null) {
             Long id = Long.valueOf(request.getParameter("id"));
-            userService.deleteUser(id);
+            userServiceImpl.deleteUser(id);
         } else {
 
         }

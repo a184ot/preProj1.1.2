@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/update")
 public class UpdateServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
+    UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
     ReadServlet readServlet = new ReadServlet();
 
 
@@ -21,7 +21,7 @@ public class UpdateServlet extends HttpServlet {
             throws ServletException, IOException {
         Long id = Long.valueOf(request.getParameter("id"));
         if (request.getParameter("name") == null) {
-            User existingUser = userService.getUserById(id);
+            User existingUser = userServiceImpl.getUserById(id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("update.jsp");
             request.setAttribute("user", existingUser);
             dispatcher.forward(request, response);
@@ -37,7 +37,7 @@ public class UpdateServlet extends HttpServlet {
         Long age = Long.valueOf(request.getParameter("age"));
         String role = request.getParameter("role");
         User user = new User(id, name, password, age, email, role);
-        userService.updateUser(user);
+        userServiceImpl.updateUser(user);
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
         dispatcher.forward(request, response);
     }

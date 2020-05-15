@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.util.*;
 
 @WebServlet("/user")
 public class UserReadServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
+    UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +30,7 @@ public class UserReadServlet extends HttpServlet {
     protected void listUser(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String name = String.valueOf(request.getSession().getAttribute("login"));
-        User user = userService.getUserByName(name);
+        User user = userServiceImpl.getUserByName(name);
         List<User> listUser = new ArrayList<>();
         listUser.add(user);
 

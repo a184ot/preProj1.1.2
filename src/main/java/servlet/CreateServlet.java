@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/admin/create", "/create" })
 public class CreateServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
+    UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +28,7 @@ public class CreateServlet extends HttpServlet {
             Long age = Long.valueOf(request.getParameter("age"));
             String role = "user";
             User newUser = new User(name, password, age, email, role);
-            userService.addUser(newUser);
+            userServiceImpl.addUser(newUser);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
         dispatcher.forward(request, response);

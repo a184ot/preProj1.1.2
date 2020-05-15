@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,14 +13,14 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
+    UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("name") != null && request.getParameter("password") != null) {
             String name = request.getParameter("name");
             String password = request.getParameter("password");
-            User user = userService.getUserByName(name);
+            User user = userServiceImpl.getUserByName(name);
             if (user.getName().equals(name) && user.getPassword().equals(password)){
 
                 listUser(request, response);
