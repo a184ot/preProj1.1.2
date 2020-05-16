@@ -28,7 +28,8 @@
                 <td>
                     <button onclick="location.href='update?id=<c:out value='${user.id}'/>'" ;>Edit</button>
                     &nbsp;&nbsp;&nbsp;
-                    <button onclick="location.href='delete?id=<c:out value='${user.id}'/>'">Delete</button>
+                    <button formmethod="post" onclick="location.href='delete?id=<c:out value='${user.id}'/>'">Delete
+                    </button>
                 </td>
             </tr>
         </c:forEach>
@@ -37,13 +38,22 @@
 <hr>
 <div style="text-align: center;">
     <h2>
-        <button onclick="location.href='create'" ;>Add New User</button>
-        &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='admin'" ;>List All Users</button>
-        &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='logout'" ;>Logout</button>
-        &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='user'" ;>User page</button>
+        <tr>
+            <td>
+                <button formmethod="post" onclick="location.href='create'" ;>Add New User</button>
+                <button formmethod="post" onclick="location.href='admin'" ;>List All Users</button>
+<%--                <button onclick="location.href='logout'" ;>Logout</button>--%>
+                <form action="user" method="post">
+                    <button name="foo" value="upvote">User page2</button>
+                </form>
+                <%--        <button formmethod="post" onclick="location.href='user'" ;>User page</button>--%>
+                <%--        &nbsp;&nbsp;&nbsp;--%>
+                <form action="user" method="post">
+                    <button name="foo" value="upvote">User page2</button>
+                    <button name="foo" value="upvote">User page2</button>
+                </form>
+            </td>
+        </tr>
     </h2>
 </div>
 

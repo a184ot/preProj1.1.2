@@ -24,18 +24,16 @@ public class UserReadServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        listUser(request, response);
     }
 
     protected void listUser(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String name = String.valueOf(request.getSession().getAttribute("login"));
+        String name = String.valueOf(request.getSession().getAttribute("name"));
         User user = userServiceImpl.getUserByName(name);
         List<User> listUser = new ArrayList<>();
         listUser.add(user);
-
         request.setAttribute("listUser", listUser);
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("userRead.jsp");
         dispatcher.forward(request, response);
     }

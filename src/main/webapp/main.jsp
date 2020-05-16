@@ -16,7 +16,7 @@
             <tr>
                 <th>Login:</th>
                 <td>
-                    <input type="text" name="login" size="45"
+                    <input type="text" name="name" size="45"
                     />
                 </td>
             </tr>

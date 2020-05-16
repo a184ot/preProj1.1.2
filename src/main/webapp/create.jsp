@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button onclick="location.href='create'" ;>Save User</button>
+                        <button formmethod="post" onclick="location.href='create'" ;>Save User</button>
                     </td>
                 </tr>
             </table>
@@ -55,9 +55,9 @@
 <hr>
 <div style="text-align: center;">
     <h2>
-        <button onclick="location.href='create'" ;>Add New User</button>
+        <button formmethod="post" onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='admin'" ;>List All Users</button>
+        <button formmethod="post" onclick="location.href='admin'" ;>List All Users</button>
     </h2>
 </div>
 </body>

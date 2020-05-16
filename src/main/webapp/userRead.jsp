@@ -40,7 +40,7 @@
 
         <button onclick="location.href='create'" ;>Add New User</button>
         &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='admin'" ;>List All Users</button>
+        <button formmethod="post" onclick="location.href='admin'" ;>List All Users</button>
         </c:if>
     </h2>
 

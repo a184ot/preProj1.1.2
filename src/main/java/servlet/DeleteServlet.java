@@ -16,19 +16,26 @@ public class DeleteServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        if (request.getParameter("id") != null) {
+//            Long id = Long.valueOf(request.getParameter("id"));
+//            userServiceImpl.deleteUser(id);
+//        } else {
+//
+//        }
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin");
+//        dispatcher.forward(request, response);
+    }
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         if (request.getParameter("id") != null) {
             Long id = Long.valueOf(request.getParameter("id"));
             userServiceImpl.deleteUser(id);
         } else {
 
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
         dispatcher.forward(request, response);
-    }
-
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 }
