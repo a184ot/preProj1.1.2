@@ -40,16 +40,5 @@
     <h2>
     </h2>
 </div>
-<%--<div align="center" class="form">
-
-    <h1>Login</h1><br>
-    <form method="post" action="">
-
-        Login<input type="text" required placeholder="login" name="login"><br>
-        Password<input type="password" required placeholder="password" name="password"><br><br>
-        <input class="button" type="submit" value="Enter">
-
-    </form>
-</div>--%>
 </body>
 </html>
