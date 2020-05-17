@@ -24,7 +24,7 @@ public class UserReadServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        listUser(request, response);
+//        listUser(request, response);
     }
 
     protected void listUser(HttpServletRequest request, HttpServletResponse response)
@@ -33,6 +33,8 @@ public class UserReadServlet extends HttpServlet {
         User user = userServiceImpl.getUserByName(name);
         List<User> listUser = new ArrayList<>();
         listUser.add(user);
+        String role = String.valueOf(request.getSession().getAttribute("role"));
+        request.setAttribute("role", role);
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("userRead.jsp");
         dispatcher.forward(request, response);

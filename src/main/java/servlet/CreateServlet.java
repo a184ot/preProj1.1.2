@@ -36,7 +36,7 @@ public class CreateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("name") == null || request.getParameter("age") == null || request.getParameter("email") == null) {
+ /*       if (request.getParameter("name") == null || request.getParameter("age") == null || request.getParameter("email") == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
             dispatcher.forward(request, response);
         } else {
@@ -49,7 +49,7 @@ public class CreateServlet extends HttpServlet {
             userServiceImpl.addUser(newUser);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
-        dispatcher.forward(request, response);
+        dispatcher.forward(request, response);*/
     }
 
 

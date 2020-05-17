@@ -15,7 +15,7 @@
             <th align="left">Age</th>
             <th align="left">Email</th>
             <th align="left">Role</th>
-<%--            <th align="left">Actions</th>--%>
+            <%--            <th align="left">Actions</th>--%>
         </tr>
 
         <c:forEach var="user" items="${listUser}">
@@ -31,20 +31,29 @@
     </table>
 </div>
 <hr>
-<div style="text-align: center;">
-
-    <h2>
-        <button onclick="location.href='logout'" ;>Logout User</button>
-        &nbsp;&nbsp;&nbsp;
-        <c:if test = "${user.role == admin}">
-
-        <button onclick="location.href='create'" ;>Add New User</button>
-        &nbsp;&nbsp;&nbsp;
-        <button formmethod="post" onclick="location.href='admin'" ;>List All Users</button>
-        </c:if>
-    </h2>
-
+<div align="center">
+    <table>
+        <caption><h2>Actions</h2></caption>
+        <tr>
+            <c:if test="${role == 'admin'}">
+            <th align="left">
+                <form action="admin" method="post">
+                    <button name="" value="">List All Users</button>
+                </form>
+            </th>
+            <th align="left">
+                <form action="create" method="post">
+                    <button name="" value="">Add New User</button>
+                </form>
+            </th>
+            </c:if>
+            <th align="left">
+                <form action="logout" method="post">
+                    <button name="" value="">Logout</button>
+                </form>
+            </th>
+        </tr>
+    </table>
 </div>
-
 </body>
 </html>

@@ -72,12 +72,32 @@
         </form>
 </div>
 <hr>
-<div style="text-align: center;">
-    <h2>
-        <button onclick="location.href='create'" ;>Add New User</button>
-        &nbsp;&nbsp;&nbsp;
-        <button onclick="location.href='admin'" ;>List All Users</button>
-    </h2>
+<div align="center">
+    <table>
+        <caption><h2>Admin Actions</h2></caption>
+        <tr>
+            <th align="left">
+                <form action="admin" method="post">
+                    <button name="" value="">List All Users</button>
+                </form>
+            </th>
+            <th align="left">
+                <form action="create" method="post">
+                    <button name="" value="">Add New User</button>
+                </form>
+            </th>
+            <th align="left">
+                <form action="user" method="post">
+                    <button name="" value="">User Page</button>
+                </form>
+            </th>
+            <th align="left">
+                <form action="logout" method="post">
+                    <button name="" value="">Logout</button>
+                </form>
+            </th>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
